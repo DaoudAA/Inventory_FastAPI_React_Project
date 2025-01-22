@@ -1,0 +1,6 @@
+# Cache #
+__pycache__/
+routers/__pycache__/
+
+# virtual environment #
+venv/
