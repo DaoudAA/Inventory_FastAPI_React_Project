@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from tortoise.contrib.fastapi import register_tortoise
-from routers import suppliers,products
+from routers import suppliers,products, emails
 
 app= FastAPI()
 
@@ -11,6 +11,7 @@ app= FastAPI()
 
 app.include_router(suppliers.router)
 app.include_router(products.router)
+app.include_router(emails.router)
 
 register_tortoise(
     app,

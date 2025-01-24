@@ -4,3 +4,4 @@ routers/__pycache__/
 
 # virtual environment #
 venv/
+*.env
