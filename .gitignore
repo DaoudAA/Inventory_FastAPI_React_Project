@@ -1,7 +1,7 @@
 # Cache #
 __pycache__/
-routers/__pycache__/
+api/routers/__pycache__/
 
 # virtual environment #
 venv/
-*.env
+api/*.env
