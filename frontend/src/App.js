@@ -14,6 +14,7 @@ function App() {
           <div className="row">
               <div className="col-sm-10 col-xm-12 mr-auto ml-auto mt-4 mb-4">
                 <ProductsTable/>
+                <Route exact path="/addproduct" component={AddProducts} />
               </div>
           </div>
           </ProductProvider>
