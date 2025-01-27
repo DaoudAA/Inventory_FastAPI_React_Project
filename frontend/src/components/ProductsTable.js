@@ -2,8 +2,69 @@ import React ,{useContext, useEffect} from 'react'
 import { ProductContext } from '../ProductContext';
 import { Table } from 'react-bootstrap';
 import ProductRow from './ProductRow';
+import { useNavigate } from 'react-router-dom';
+import { UpdateContext } from '../UpdateProductContext'
+import {SupplierContext} from '../SupplierContext'
 const ProductsTable = () => {
     const [products, setProducts] = useContext(ProductContext);
+    const [updateProductInfo, setUpdateProductInfo] = useContext(UpdateContext)
+    const [supplierDetail, setSupplierDetail] = useContext(SupplierContext)
+
+    let history = useNavigate()
+
+    const handleDelete = (id) => {
+        fetch("http://127.0.0.1:8000/products/" + id, {
+            method: "DELETE",
+            headers: {
+                accept: 'application/json'
+            }
+        })
+            .then(resp => {
+            return resp.json()
+            })
+            .then(result => {
+                if (result.status === 'ok') {
+                    const filteredProducts = products.data.filter((product) => product.id !== id);
+                    setProducts({ data: [...filteredProducts] })
+                    alert("Product deleted")
+                } else {
+                    alert("Product deletion failed")
+            }
+        })
+    }
+
+    const handleUpdate = (id) => {
+        const product = products.data.filter(product => product.id === id)[0]
+        setUpdateProductInfo({
+            ProductName: product.productName,
+            QuantityInStock: product.quantityStock,
+            QuantitySold: product.quantitySold,
+            UnitPrice: product.unitPrice,
+            Revenue: product.revenue,
+            ProductId: id
+        })
+        history.push("/updateproduct")
+    }
+
+    const handleSupplier = (id) => {
+        console.log(id)
+        fetch("http://localhost:8000/suppliers/" + id, {
+            headers: {
+                Accept: 'application/json'
+            }
+        }).then(resp => {
+            return resp.json()
+        }).then(result => {
+            if (result.status === 'ok') {
+                setSupplierDetail({ ...result.data })
+                history.push("/supplierpage")
+            }
+            else {
+                alert("error")
+            }
+        })
+
+    }
 
     useEffect(() => {
         fetch('http://localhost:8000/products')
@@ -40,9 +101,9 @@ const ProductsTable = () => {
                             unitPrice = {product.unitPrice}
                             revenue = {product.revenue}
                             key={product.id}
-                            // handleDelete={handleDelete}
-                            // handleUpdate={handleUpdate}
-                            // handleSupplier={handleSupplier}
+                            handleDelete={handleDelete}
+                            handleUpdate={handleUpdate}
+                            handleSupplier={handleSupplier}
                         />
                     ))}
 				</tbody>

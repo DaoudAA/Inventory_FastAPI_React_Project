@@ -5,7 +5,8 @@ const ProductRow = ({id
     ,quantityStock
     ,quantitySold
     ,unitPrice
-    ,revenue }) => {
+    ,revenue
+, handleDelete, handleUpdate, handleSupplier }) => {
   return (
     <tr>
                         <td>{id}</td>
@@ -15,15 +16,9 @@ const ProductRow = ({id
 						<td>{unitPrice}</td>
 						<td>{revenue}</td>
 						<td>
-                            <button className='btn btn-outline-info btn-sm ml-1 mr-2'>
-                                Update
-                            </button>
-                            <button className='btn btn-outline-success btn-sm ml-1 mr-2'>
-                                Supplier
-                            </button>
-                            <button className='btn btn-outline-danger btn-sm ml-1 mr-2'>
-                                Delete
-                            </button>
+                        <button onClick={() => handleUpdate(id)} className="btn btn-outline-info btn-sm ml-1 mr-2">Update</button>
+                        <button onClick={() => handleSupplier(id)} className="btn btn-outline-success btn-sm mr-2">Supplier</button>
+                        <button onClick={() => handleDelete(id)}  className = "btn btn-outline-danger btn-sm mr-2">Delete</button>
                         </td>
     </tr>
       

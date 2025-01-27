@@ -26,7 +26,7 @@ const AddProducts = () => {
         e.preventDefault();
         console.log(productInfo)
     
-        const url = "http://localhost:8000/product/" + productInfo['Supplier'] 
+        const url = "http://localhost:8000/products/" + productInfo['Supplier'] 
 
         const response = await fetch(
             url, {
